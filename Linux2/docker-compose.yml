@@ -12,7 +12,7 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 'p@ssword'
+      MYSQL_ROOT_PASSWORD: 'password'
 
   php:
     build: ./php
