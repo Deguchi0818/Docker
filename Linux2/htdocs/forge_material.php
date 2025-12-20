@@ -107,7 +107,7 @@ try {
             &laquo; ベース選択に戻る
         </a>
         
-        &nbsp;&nbsp; <a href="forge_entrance.php" style="color: #999; text-decoration: underline;">
+        &nbsp;&nbsp; <a href="index.php" style="color: #999; text-decoration: underline;">
             メニューへ戻る
         </a>
     </div>

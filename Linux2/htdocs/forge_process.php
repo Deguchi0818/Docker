@@ -129,7 +129,7 @@ try {
         <div style="color: red; padding: 20px; background: #fff0f0; border: 1px solid red; max-width: 600px; margin: auto;">
             <h2>進化失敗...</h2>
             <p><?php echo htmlspecialchars($error_message); ?></p>
-            <a href="index.php">メニューへ戻る</a>
+            <a href="forge_entrance.php">メニューへ戻る</a>
         </div>
     <?php else: ?>
         
@@ -155,6 +155,9 @@ try {
             <div style="margin-top: 30px;">
                 <a href="index.php" class="btn-link btn-home">
                     メニューへ戻る
+                </a>
+                <a href="forge_entrance.php" class="btn-link btn-home">
+                    強化を続ける
                 </a>
             </div>
         </div>

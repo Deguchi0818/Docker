@@ -83,5 +83,9 @@ catch (PDOException $e){
             </tbody>
         </table>
     <?php endif; ?>
+    <div style="margin-top: 30px;">
+        &nbsp;&nbsp; <a href="index.php" style="color: #999; text-decoration: underline;">
+            メニューへ戻る
+        </a>
 </body>
 </html>
