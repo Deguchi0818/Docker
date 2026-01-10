@@ -55,8 +55,16 @@ try{
 
         <?php if ($money >= 100): ?>
             <form action="gacha_process.php" method="POST">
+                <input type="hidden" name="num" value="1">
                 <button type="submit" class="btn-gacha">ガチャを回す！</button>
             </form>
+        <form action="gacha_process.php" method="POST" style="display: inline-block; margin-left: 10px;">
+        <input type="hidden" name="num" value="10">
+        <button type="submit" class="btn-gacha">
+            10連引く (1000G)
+                </button>
+            </form>
+    </div>
         <?php else: ?>
             <p style="color: red;">お金が足りません</p>
             <button class="btn-gacha" disabled>ガチャを回す！</button>

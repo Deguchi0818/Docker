@@ -78,3 +78,17 @@ INSERT INTO gacha_probabilities (item_id, weight) VALUES (1, 1);
 INSERT INTO gacha_probabilities (item_id, weight) VALUES (2, 10);
 INSERT INTO gacha_probabilities (item_id, weight) VALUES (3, 30);
 INSERT INTO gacha_probabilities (item_id, weight) VALUES (4, 59);
+
+DROP TABLE IF EXISTS monsters;
+CREATE TABLE IF NOT EXISTS monsters(
+    monster_id INT PRIMARY KEY AUTO_INCREMENT,
+    monster_name VARCHAR(255) NOT NULL,
+    required_power INT NOT NULL,
+    reward_money INT NOT NULL
+);
+
+INSERT INTO monsters (monster_name, required_power, reward_money) VALUES 
+('スライム', 1, 50),
+('ゴブリン', 10, 200),
+('ドラゴン', 50, 1000),
+('魔王', 100, 5000);
