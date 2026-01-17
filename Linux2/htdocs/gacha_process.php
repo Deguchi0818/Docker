@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
 $num = isset($_POST['num']) ? (int)$_POST['num'] : 1;
 if(!in_array($num, [1, 10])) $num = 1;
 
-$total_cost = $unit_cost * $num;
+$cost = $unit_cost * $num;
 $won_items = [];
 $error_message = "";
 

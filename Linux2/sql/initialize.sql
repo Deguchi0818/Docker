@@ -27,7 +27,8 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users(
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(255),
-    money INT DEFAULT 3000
+    money INT DEFAULT 3000,
+    equipped_user_item_id INT DEFAULT NULL
     );
 
 INSERT INTO users (user_name, money) VALUES ('test_user', 3000);

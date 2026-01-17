@@ -54,16 +54,6 @@ try {
     body { background: #000; color: #fff; text-align: center; font-family: 'Courier New', monospace; }
     .battle-scene { margin-top: 50px; }
     .monster-vfx { font-size: 100px; margin-bottom: 20px; transition: transform 0.1s; }
-    
-    /* 攻撃を受けた時の揺れアニメーション */
-    .shake { animation: shake 0.5s; }
-    @keyframes shake {
-        0% { transform: translate(1px, 1px) rotate(0deg); }
-        10% { transform: translate(-1px, -2px) rotate(-1deg); }
-        30% { transform: translate(3px, 2px) rotate(0deg); }
-        50% { transform: translate(-1px, 2px) rotate(1deg); }
-        100% { transform: translate(1px, 1px) rotate(0deg); }
-    }
 
     .log-box { background: #222; border: 2px solid #fff; padding: 20px; max-width: 500px; margin: 20px auto; text-align: left; height: 150px; overflow-y: auto; }
     .win { color: #2ecc71; font-weight: bold; }
@@ -72,11 +62,20 @@ try {
 
 <div class="battle-scene">
     <div class="monster-vfx <?php echo $is_win ? 'shake' : ''; ?>">
-        <?php 
-            $icons = ['スライム'=>'💧','ゴブリン'=>'👺','ドラゴン'=>'🐉','魔王'=>'👿'];
-            echo $icons[$monster['monster_name']] ?? '👾';
-        ?>
-    </div>
+      <?php 
+    $monster_icons = [
+    'スライム' => '💧',
+    'ゴブリン' => '👺',
+    'ドラゴン' => '🐉',
+    '魔王'     => '👿'
+    ];
+    // モンスター名からアイコンを取得し、なければ👾を出す
+    $current_icon = $monster_icons[$b['monster']['monster_name']] ?? '👾';
+?>
+
+<div style="font-size: 60px; margin: 20px;">
+    <?php echo $current_icon; ?>
+</div>
 
     <div class="log-box">
         <p>>> <?php echo htmlspecialchars($monster['monster_name']); ?> があらわれた！</p>

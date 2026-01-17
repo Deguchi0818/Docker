@@ -14,9 +14,13 @@ try {
         $monster = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($monster) {
-            // 最強武器の攻撃力を判定
-            $stmt_item = $pdo->prepare("SELECT MIN(item_id) FROM user_items WHERE user_id = :uid");
-            $stmt_item->execute([':uid' => $current_user_id]);
+           
+            $stmt_item = $pdo->prepare("
+            SELECT ui.item_id 
+            FROM users u 
+            JOIN user_items ui ON u.equipped_user_item_id = ui.user_item_id 
+            WHERE u.user_id = :uid ");
+        $stmt_item->execute([':uid' => $current_user_id]);
             $top_id = $stmt_item->fetchColumn();
 
             $player_atk = 15; // デフォルト攻撃力
@@ -58,16 +62,17 @@ try {
             $reward = (int)$b['monster']['reward_money'];
             $b['logs'][] = "★勝利！ {$reward} G を手に入れた！";
 
-            // 1. データベースの金額を更新
+            // データベースの金額を更新
             $up_stmt = $pdo->prepare("UPDATE users SET money = money + :rev WHERE user_id = :uid");
             $up_stmt->execute([':rev' => $reward, ':uid' => $current_user_id]);
             
-            // 【重要】2. 本当に更新されたか、DBから最新の所持金を再取得する
+            
+            // 本当に更新されたか、DBから最新の所持金を再取得する
             $check_stmt = $pdo->prepare("SELECT money FROM users WHERE user_id = :uid");
             $check_stmt->execute([':uid' => $current_user_id]);
             $new_money = $check_stmt->fetchColumn();
 
-            // 【重要】3. ガチャ画面などがセッションを参照している場合のため、セッションも更新
+            // ガチャ画面などがセッションを参照している場合のため、セッションも更新
             $_SESSION['user_money'] = $new_money; 
 
             $b['logs'][] = "（DB更新完了！ 現在の所持金: {$new_money} G）";
@@ -113,7 +118,18 @@ try {
         <div class="hp-fill monster-hp" style="width: <?php echo max(0, ($b['monster_hp'] / $b['max_monster_hp']) * 100); ?>%;"></div>
     </div>
 
-    <div style="font-size: 60px; margin: 20px;">👾</div>
+   <div style="font-size: 60px; margin: 20px;">
+    <?php 
+        // モンスター名とアイコンの対応表
+        $monster_icons = [
+            'スライム' => '💧',
+            'ゴブリン' => '👺',
+            'ドラゴン' => '🐉',
+            '魔王'     => '👿'
+        ];
+        echo $monster_icons[$b['monster']['monster_name']] ?? '👾'; 
+    ?>
+</div>
 
     <p>YOUR HP: <?php echo $b['player_hp']; ?> / 100</p>
     <div class="hp-bar">

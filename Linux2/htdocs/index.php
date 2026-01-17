@@ -25,7 +25,9 @@
         href="adventure.php" class="btn-menu btn-adventure">
             ⚔️ 冒険へ出る
         </a>
-    
+        <a href="equipment.php" class="btn-menu" style="background-color: #6c757d;">
+        🛡️ 装備を変更する
+        </a>
         <a href="forge_entrance.php" class="btn-menu btn-forge">
             🔨 装備を強化・進化させる
         </a>

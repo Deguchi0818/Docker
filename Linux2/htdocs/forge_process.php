@@ -22,7 +22,7 @@ try {
 
     $pdo->beginTransaction();
 
-    // 1. 所有権とアイテム情報のチェック
+    // 所有権とアイテム情報のチェック
     // ベースと素材を取得し、所有者が自分か確認する
     $sql_check = "
         SELECT ui.user_item_id, ui.item_id, i.item_name 
@@ -50,9 +50,7 @@ try {
     }
     $before_item_name = $base_item_data['item_name'];
 
-    // 2. 進化レシピの確認
-    // 「このベースアイテム(item_id)を素材にすると、何(target_item_id)になるか？」を調べる
-    // ※ ご提示のSQLでは material_item_id が「元になるアイテム」と解釈します
+    // 進化レシピの確認
     $sql_recipe = "
         SELECT target_item_id 
         FROM craft_recipes 
@@ -69,17 +67,17 @@ try {
 
     $new_item_id = $recipe['target_item_id'];
 
-    // 3. 素材アイテムを削除（消費）
+    // 素材アイテムを削除（消費）
     $sql_delete = "DELETE FROM user_items WHERE user_item_id = :mat_id";
     $stmt = $pdo->prepare($sql_delete);
     $stmt->execute([':mat_id' => $material_id]);
 
-    // 4. ベースアイテムを進化（item_id を新しいIDに書き換える！）
+    // ベースアイテムを進化（item_id を新しいIDに書き換える！）
     $sql_update = "UPDATE user_items SET item_id = :new_id WHERE user_item_id = :base_id";
     $stmt = $pdo->prepare($sql_update);
     $stmt->execute([':new_id' => $new_item_id, ':base_id' => $base_id]);
 
-    // 5. 進化後のデータを取得（表示用）
+    // 進化後のデータを取得（表示用）
     $sql_select = "
         SELECT 
             ui.user_item_id, 

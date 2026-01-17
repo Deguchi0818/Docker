@@ -14,7 +14,7 @@ try {
     $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // 1. ベース（強化元）の情報を取得（表示用）
+    // ベース（強化元）の情報を取得
     $sql_base = "
         SELECT ui.user_item_id, i.item_name 
         FROM user_items ui 
@@ -27,7 +27,7 @@ try {
     $base_item_info = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-    // 2. 素材候補を取得（重要：ベースに選んだIDは除外する！）
+    // 素材候補を取得
     $sql_mat = "
         SELECT
             ui.user_item_id AS unique_id,
