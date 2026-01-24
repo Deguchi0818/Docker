@@ -11,13 +11,12 @@ try {
     $pdo = new PDO($dsn, $username, $password);
     $pdo->beginTransaction();
 
-    // 1. モンスター情報取得
+    // モンスター情報取得
     $stmt = $pdo->prepare("SELECT * FROM monsters WHERE monster_id = :mid");
     $stmt->execute([':mid' => $monster_id]);
     $monster = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // 2. プレイヤーの最強武器による戦闘力計算
-    // 例: SSR(ID:1)なら100点、N(ID:4)なら10点
+    // プレイヤーの最強武器による戦闘力計算
     $stmt = $pdo->prepare("SELECT MIN(item_id) FROM user_items WHERE user_id = :uid");
     $stmt->execute([':uid' => $current_user_id]);
     $top_id = $stmt->fetchColumn();
@@ -28,8 +27,8 @@ try {
     elseif ($top_id == 3) $player_power = 20;  // R
     elseif ($top_id == 4) $player_power = 10;  // N
 
-    // 3. 勝敗判定 (乱数 + パワー)
-    $win_chance = ($player_power / $monster['required_power']) * 50; // 適当な計算式
+    // 勝敗判定 (乱数 + パワー)
+    $win_chance = ($player_power / $monster['required_power']) * 50; 
     $random_val = mt_rand(1, 100);
     $is_win = ($random_val <= $win_chance);
 
